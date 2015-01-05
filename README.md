@@ -1,11 +1,3 @@
-### Base javascript template
+### LoDash Data
 
-This template includes following libraries:
-
-* lodash
-* javascript
-* moment
-* grunt
-* bootstrap
-* mustache
-* json2 for old browsers
+LoDash extension that add some useful functions to manipulate and transform data.
