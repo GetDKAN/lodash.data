@@ -138,7 +138,7 @@
     },
 
     /**
-     * [keyToIndex description]
+     * [inv description]
      * @param  {[type]} coll  [description]
      * @return {[type]}       [description]
      */
@@ -147,6 +147,14 @@
       return function(ctrl){
         return _.isFunction(ctrl[method]) && ctrl[method].apply(ctrl, args);
       };
+    },
+    /**
+     * [cloneJSON description]
+     * @param  {[type]} coll  [description]
+     * @return {[type]}       [description]
+     */
+    cloneJSON: function(obj){
+      return JSON.parse(JSON.stringify(obj));
     }
   });
 })();
