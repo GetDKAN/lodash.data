@@ -164,6 +164,62 @@
     inArray: function(array, item){
       return (_.indexOf(array, item) === -1)? false : true;
     },
+    validator: function(predicate){
+      return function(item){
+        if(_.isFunction(predicate)) {
+          return predicate(item);
+        }
+        return false;
+      };
+    },
+    validateField: function(coll, field, validator){
+      return _.every(coll, function(item){
+        return validator(item[field]);
+      });
+    },
+    negate: function (predicate) {
+      return function() {
+        return !predicate.apply(this, arguments);
+      };
+    },
+    cast: function(value){
+      var type = _.inferType(value);
+      if(type === 'undefined') return undefined;
+      if(type === 'null') return null;
+      if(type === 'NaN') return NaN;
+      if(type === 'Array') return value;
 
+      return global[type](value);
+    },
+    inferType:function(value){
+      if(_.isUndefined(value)){
+        return 'undefined';
+      } else if(_.isNull(value)){
+        return 'null';
+      } else if(_.isDate(value)){
+        return 'Date';
+      } else if (_.isArray(value)){
+        return 'Array';
+      } else if(!isNaN(value) && value !== ''){
+        return 'Number';
+      } else if(value !== '' && !isNaN(Date.parse(value))) {
+        return 'Date';
+      } else if (_.isObject(value)){
+        return 'Object';
+      } else if (_.isString(value)){
+        return 'String';
+      } else if (_.isBoolean(value)){
+        return 'Boolean';
+      } else if (_.isRegExp(value)){
+        return 'RegExp';
+      } else if (_.isNaN(value)){
+        return 'NaN';
+      }
+    },
+    iteratee: function(key){
+      return function(obj){
+        return obj[key];
+      };
+    }
   });
 })();
