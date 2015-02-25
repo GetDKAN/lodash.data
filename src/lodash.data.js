@@ -1,6 +1,6 @@
 ;(function(){
   'use strict';
-
+  var global = global || window;
   _.mixin({
 
     /**
@@ -219,6 +219,11 @@
     iteratee: function(key){
       return function(obj){
         return obj[key];
+      };
+    },
+    instantiate: function(Constructor){
+      return function(options){
+        return new Constructor(options);
       };
     }
   });
