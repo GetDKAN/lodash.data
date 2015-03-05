@@ -188,6 +188,9 @@
       if(type === 'null') return null;
       if(type === 'NaN') return NaN;
       if(type === 'Array') return value;
+      if(type === 'Date'){
+        return Date.parse(value);
+      }
 
       return global[type](value);
     },
